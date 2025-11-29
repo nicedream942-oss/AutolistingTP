@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Teepublic Autolisting</title>
+    <link rel="stylesheet" href="sidepanel.css">
+</head>
+<body>
+    <div id="main-view" class="view active">
+        <div class="header">
+            <h1>Teepublic Autolisting</h1>
+            <button id="go-to-settings-btn" class="icon-btn" title="Pengaturan">&#9881;</button>
+        </div>
+        <div class="content">
+            <div class="card">
+                <div class="form-group-col">
+                    <label for="custom-main-tag">Custom Main Tag (Optional)</label>
+                    <input type="text" id="custom-main-tag" placeholder="e.g., Cat, Dog, Halloween">
+                </div>
+                <div class="form-group-col">
+                    <label for="suggestion-tag">Suggestion Tag (Optional)</label>
+                    <input type="text" id="suggestion-tag" placeholder="e.g., Vintage, Funny, Retro">
+                </div>
+            </div>
+
+            <div class="collapsible-container card">
+                <button id="toggle-general-settings-btn" class="collapsible-trigger">
+                    General Settings <span class="arrow">&#9660;</span>
+                </button>
+                <div id="general-settings-content" class="collapsible-content">
+                    <div class="collapsible-inner-content">
+                        <div class="form-group-col">
+                           <label for="teepublic-mature-content">Konten Dewasa</label>
+                           <select id="teepublic-mature-content">
+                               <option value="false">No</option>
+                               <option value="true">Yes</option>
+                           </select>
+                       </div>
+                       <div class="form-group-col">
+                           <label for="autoflow-count">Jumlah Gambar</label>
+                           <input type="number" id="autoflow-count" min="1" max="100" value="5">
+                       </div>
+                       <div class="form-group-col">
+                            <label for="autoflow-delay">Jeda Antar flow</label>
+                            <select id="autoflow-delay">
+                                <option value="3">3 Detik</option>
+                                <option value="5">5 Detik</option>
+                                <option value="7">7 Detik</option>
+                                <option value="10">10 Detik</option>
+                                <option value="random">Acak (5-10 Detik)</option>
+                            </select>
+                        </div>
+                       <div class="form-group-col">
+                           <label for="teepublic-auto-publish">Auto Publish</label>
+                           <select id="teepublic-auto-publish">
+                               <option value="false">No</option>
+                               <option value="true">Yes</option>
+                           </select>
+                       </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="collapsible-container card">
+                <button id="toggle-content-settings-btn" class="collapsible-trigger">
+                    Content Settings <span class="arrow">&#9660;</span>
+                </button>
+                <div id="content-settings-content" class="collapsible-content">
+                    <div class="collapsible-inner-content">
+                        <div class="form-group-col">
+                            <label for="description-length">Deskripsi</label>
+                            <select id="description-length">
+                                <option value="short">Pendek</option>
+                                <option value="long">Panjang</option>
+                            </select>
+                        </div>
+                        <div class="form-group-col">
+                            <label for="supporting-tags-count">Jumlah Supporting Tag (1-14)</label>
+                            <input type="number" id="supporting-tags-count" min="1" max="14" value="5">
+                        </div>
+                        <div class="form-group-col">
+                            <label for="avoid-copyright">Hindari Metadata Copyright</label>
+                            <select id="avoid-copyright">
+                                <option value="true">Yes</option>
+                                <option value="false">No</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="button-group">
+                <button id="start-stop-btn" class="btn btn-primary">Generate & Fill</button>
+                <button id="start-autoflow-btn" class="btn btn-secondary">Start Autoflow</button>
+            </div>
+            
+            <div id="image-preview-container" class="card">
+                <div class="preview-header">Gambar Desain:</div>
+                <img id="selected-image-preview" src="" alt="Preview Gambar yang Dipilih">
+            </div>
+
+            <div class="card log-card">
+                <div class="log-header">Log Proses</div>
+                <pre id="process-log"></pre>
+            </div>
+        </div>
+    </div>
+
+    <div id="settings-view" class="view">
+        <div class="header">
+            <h1>Pengaturan</h1>
+            <button id="back-to-main-btn" class="icon-btn" title="Kembali">&#10229;</button>
+        </div>
+        <div class="content">
+            <div class="card">
+                <h2>Preferensi AI</h2>
+                <div class="form-group-col">
+                    <label for="ai-provider">Provider AI Utama</label>
+                    <select id="ai-provider">
+                        <option value="gemini">Gemini</option>
+                        <option value="openrouter">OpenRouter</option>
+                        <option value="groq">Groq</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="card" id="api-keys-card">
+                <h2>API Keys</h2>
+                <div id="gemini-settings" class="api-provider-settings">
+                    <div class="form-group-col">
+                        <label>Gemini API Keys</label>
+                        <div class="api-key-input-group">
+                            <input type="password" id="new-gemini-key" placeholder="Masukkan Gemini API Key baru">
+                            <button id="add-gemini-key-btn" class="btn-add">+</button>
+                        </div>
+                        <div id="gemini-keys-list" class="api-key-list"></div>
+                    </div>
+                </div>
+                <div id="openrouter-settings" class="api-provider-settings">
+                    <div class="form-group-col">
+                        <label for="openrouter-key">OpenRouter API Key</label>
+                        <input type="password" id="openrouter-key" placeholder="Masukkan OpenRouter API Key">
+                    </div>
+                     <div class="form-group-col">
+                        <label for="openrouter-model-select">Model OpenRouter</label>
+                        <select id="openrouter-model-select">
+                            <option value="google/gemini-2.5-flash-lite">Gemini 2.5 flash lite</option>
+                            <option value="openai/gpt-4.1-nano">Gpt 4.1 nano</option>
+                            <option value="google/gemini-2.0-flash-lite-001">Gemini 2.0 flash lite</option>
+                            <option value="google/gemini-2.0-flash-001">Gemini 2.0 flash</option>
+                            <option value="google/gemini-flash-1.5-8b">Gemini 1.5 flash</option>
+                        </select>
+                    </div>
+                </div>
+                <div id="groq-settings" class="api-provider-settings">
+                    <div class="form-group-col">
+                        <label for="groq-key">Groq API Key</label>
+                        <input type="password" id="groq-key" placeholder="Masukkan Groq API Key">
+                    </div>
+                    <div class="form-group-col">
+                        <label for="groq-model-select">Model Groq</label>
+                        <select id="groq-model-select">
+                            <option value="meta-llama/llama-4-scout-17b-16e-instruct">Llama 4 Scout 17B</option>
+                            <option value="meta-llama/llama-4-maverick-17b-128e-instruct">Llama 4 Maverick 17B</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Teepublic Color Settings</h2>
+                <div class="form-group-col">
+                    <label for="teepublic-tshirt-color">T-Shirt Default Color</label>
+                    <select id="teepublic-tshirt-color">
+                        <option value="AI_DECIDE">Let AI Decide</option>
+                        <option value="White">White</option><option value="Asphalt">Asphalt</option><option value="Black">Black</option><option value="Maroon">Maroon</option><option value="Red">Red</option><option value="Soft Pink">Soft Pink</option><option value="Hot Pink">Hot Pink</option><option value="Brown">Brown</option><option value="Yellow">Yellow</option><option value="Creme">Creme</option><option value="Kelly">Kelly</option><option value="Navy">Navy</option><option value="Royal Blue">Royal Blue</option><option value="Light Blue">Light Blue</option><option value="Purple">Purple</option><option value="Heather">Heather</option>
+                    </select>
+                </div>
+                 <div class="form-group-col">
+                    <label for="teepublic-hoodie-color">Hoodie Default Color</label>
+                    <select id="teepublic-hoodie-color">
+                        <option value="AI_DECIDE">Let AI Decide</option>
+                        <option value="Oatmeal Heather">Oatmeal Heather</option>
+                        <option value="Sport Green">Sport Green</option>
+                        <option value="Black">Black</option>
+                        <option value="Burgundy">Burgundy</option>
+                        <option value="Creme">Creme</option>
+                        <option value="Navy">Navy</option>
+                        <option value="Colony Blue">Colony Blue</option>
+                        <option value="Vintage Heather">Vintage Heather</option>
+                        <option value="Charcoal Heather">Charcoal Heather</option>
+                    </select>
+                </div>
+                 <div class="form-group-col">
+                    <label for="teepublic-tank-color">Tank Default Color</label>
+                    <select id="teepublic-tank-color">
+                        <option value="AI_DECIDE">Let AI Decide</option>
+                         <option value="White">White</option><option value="Black">Black</option><option value="Red">Red</option><option value="Navy">Navy</option>
+                    </select>
+                </div>
+                <div class="form-group-col">
+                    <label for="teepublic-crewneck-color">Crewneck Default Color</label>
+                    <select id="teepublic-crewneck-color">
+                        <option value="AI_DECIDE">Let AI Decide</option>
+                        <option value="White">White</option><option value="Black">Black</option><option value="Dark Green">Dark Green</option><option value="Navy">Navy</option><option value="Royal Blue">Royal Blue</option><option value="Heather">Heather</option><option value="Charcoal Heather">Charcoal Heather</option>
+                    </select>
+                </div>
+                <div class="form-group-col">
+                    <label for="teepublic-longsleeve-color">Long Sleeve T-Shirt Default Color</label>
+                    <select id="teepublic-longsleeve-color">
+                        <option value="AI_DECIDE">Let AI Decide</option>
+                        <option value="White">White</option><option value="Black">Black</option><option value="Red">Red</option><option value="Dark Green">Dark Green</option><option value="Navy">Navy</option><option value="Royal Blue">Royal Blue</option><option value="Light Blue">Light Blue</option><option value="Heather">Heather</option>
+                    </select>
+                </div>
+                <div class="form-group-col">
+                    <label for="teepublic-baseball-color">Baseball Tee Default Color</label>
+                    <select id="teepublic-baseball-color">
+                        <option value="AI_DECIDE">Let AI Decide</option>
+                        <option value="Black/White">Black/White</option><option value="White/Black">White/Black</option><option value="White/Royal">White/Royal</option><option value="White/Red">White/Red</option><option value="White/Kelly">White/Kelly</option><option value="White/Navy">White/Navy</option>
+                    </select>
+                </div>
+                <div class="form-group-col">
+                    <label for="teepublic-product-colors">Enabled Product Colors</label>
+                    <select id="teepublic-product-colors">
+                        <option value="all">All</option>
+                        <option value="light">Light</option>
+                        <option value="dark">Dark</option>
+                        <option value="none">None</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Kids Apparel Settings</h2>
+                <div class="form-group-col">
+                    <label for="teepublic-enable-kids">Enable Kids Apparel</label>
+                    <select id="teepublic-enable-kids">
+                        <option value="false">No</option>
+                        <option value="true">Yes</option>
+                    </select>
+                </div>
+                <div class="form-group-col">
+                    <label for="teepublic-kids-tshirt-color">Kids T-Shirt Default Color</label>
+                    <select id="teepublic-kids-tshirt-color">
+                        <option value="AI_DECIDE">Let AI Decide</option>
+                        <option value="White">White</option><option value="Asphalt">Asphalt</option><option value="Black">Black</option><option value="Red">Red</option><option value="Soft Pink">Soft Pink</option><option value="Orange">Orange</option><option value="Tennessee Orange">Tennessee Orange</option><option value="Yellow">Yellow</option><option value="Grass">Grass</option><option value="Navy">Navy</option><option value="Royal Blue">Royal Blue</option><option value="Coastal Blue">Coastal Blue</option><option value="Light Blue">Light Blue</option><option value="Purple">Purple</option><option value="Heather">Heather</option>
+                    </select>
+                </div>
+                <div class="form-group-col">
+                    <label for="teepublic-kids-hoodie-color">Kids Hoodie Default Color</label>
+                    <select id="teepublic-kids-hoodie-color">
+                        <option value="AI_DECIDE">Let AI Decide</option>
+                        <option value="Black">Black</option><option value="Navy">Navy</option><option value="Red Heather">Red Heather</option><option value="Vintage Royal">Vintage Royal</option>
+                    </select>
+                </div>
+                 <div class="form-group-col">
+                    <label for="teepublic-kids-longsleeve-color">Kids Long Sleeve T-Shirt Default Color</label>
+                    <select id="teepublic-kids-longsleeve-color">
+                        <option value="AI_DECIDE">Let AI Decide</option>
+                        <option value="Black">Black</option><option value="Navy">Navy</option><option value="Deep Royal">Deep Royal</option>
+                    </select>
+                </div>
+            </div>
+            
+            <button id="save-settings-btn" class="btn btn-primary">Simpan Pengaturan</button>
+        </div>
+    </div>
+    <script src="sidepanel.js"></script>
+</body>
+</html>

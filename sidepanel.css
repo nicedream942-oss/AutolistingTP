@@ -1,0 +1,536 @@
+/* Variabel CSS untuk konsistensi warna dan memudahkan perubahan */
+:root {
+    --primary-color: #0d6efd;         /* Warna primer (biru) */
+    --secondary-color: #6c757d;       /* Warna sekunder (abu-abu) */
+    --danger-color: #dc3545;          /* Warna untuk kondisi berbahaya/error (merah) */
+    --background-color: #f8f9fa;      /* Warna latar belakang utama */
+    --card-background: #ffffff;       /* Warna latar belakang kartu/panel */
+    --text-color: #212529;            /* Warna teks utama */
+    --border-color: #dee2e6;          /* Warna border */
+    --success-color: #198754;         /* Warna sukses (hijau) */
+    --warning-color: #ffc107;         /* Warna peringatan (kuning) */
+}
+
+/* Gaya dasar untuk body */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; /* Font stack untuk konsistensi tampilan */
+    background-color: var(--background-color); /* Warna latar belakang */
+    color: var(--text-color);                  /* Warna teks */
+    margin: 0;                                 /* Menghilangkan margin default */
+    font-size: 16px;                           /* Ukuran font dasar */
+    min-width: 350px;                          /* Lebar minimum untuk panel extension */
+    line-height: 1.5;                          /* Tinggi baris untuk keterbacaan */
+}
+
+/* Kelas untuk view (tampilan) - default disembunyikan */
+.view { 
+    display: none; 
+}
+/* Kelas untuk view yang aktif - ditampilkan */
+.view.active { 
+    display: block; 
+}
+
+/* Gaya untuk header panel */
+.header {
+    display: flex;                       /* Menggunakan flexbox untuk layout */
+    justify-content: space-between;      /* Menempatkan item dengan spasi di antara */
+    align-items: center;                 /* Vertikal center alignment */
+    padding: 16px;                       /* Padding internal */
+    background-color: var(--card-background); /* Warna latar belakang */
+    border-bottom: 1px solid var(--border-color); /* Border bawah */
+    position: sticky;                    /* Header akan menempel saat discroll */
+    top: 0;                              /* Posisi sticky di atas */
+    z-index: 10;                         /* Z-index untuk memastikan header di atas konten lain */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Shadow halus untuk depth */
+}
+
+/* Gaya untuk heading level 1 */
+h1 { 
+    font-size: 1.25rem;  /* Ukuran font */
+    margin: 0;           /* Menghilangkan margin default */
+    font-weight: 600;    /* Ketebalan font */
+}
+
+/* Gaya untuk heading level 2 */
+h2 {
+    font-size: 1.1rem;                   /* Ukuran font */
+    margin-top: 0;                       /* Menghilangkan margin atas */
+    margin-bottom: 16px;                 /* Margin bawah */
+    padding-bottom: 8px;                 /* Padding bawah */
+    border-bottom: 1px solid var(--border-color); /* Border bawah */
+    font-weight: 600;                    /* Ketebalan font */
+}
+
+/* Gaya untuk konten utama */
+.content { 
+    padding: 16px; /* Padding internal */
+}
+
+/* Gaya untuk kartu/panel */
+.card {
+    background-color: var(--card-background); /* Warna latar belakang */
+    border: 1px solid var(--border-color);    /* Border */
+    border-radius: 8px;                       /* Sudut membulat */
+    padding: 16px;                            /* Padding internal */
+    margin-bottom: 16px;                      /* Margin bawah */
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);   /* Shadow halus */
+    transition: box-shadow 0.2s ease;         /* Transisi untuk hover effect */
+}
+
+.card:hover {
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);   /* Shadow lebih dalam saat hover */
+}
+
+/* Gaya untuk form group dalam layout kolom */
+.form-group-col {
+    display: flex;          /* Menggunakan flexbox */
+    flex-direction: column; /* Arah kolom (vertikal) */
+    margin-bottom: 16px;    /* Margin bawah */
+}
+
+/* Gaya untuk label */
+label { 
+    font-weight: 500;       /* Ketebalan font */
+    margin-bottom: 8px;     /* Margin bawah */
+    display: block;         /* Membuat label sebagai block element */
+    font-size: 0.9rem;      /* Ukuran font */
+    color: var(--text-color); /* Warna teks */
+}
+
+/* Gaya untuk select, input text, password, dan number */
+select,
+input[type="text"],
+input[type="password"],
+input[type="number"] {
+    width: 100%;                    /* Lebar penuh */
+    padding: 10px 12px;             /* Padding internal */
+    border: 1px solid var(--border-color); /* Border */
+    border-radius: 6px;             /* Sudut membulat */
+    box-sizing: border-box;         /* Box sizing untuk termasuk padding dalam width */
+    font-size: 1rem;                /* Ukuran font */
+    background-color: var(--card-background); /* Warna latar belakang */
+    color: var(--text-color);       /* Warna teks */
+    transition: border-color 0.2s ease, box-shadow 0.2s ease; /* Transisi untuk focus */
+}
+
+/* Gaya untuk select dan input saat focus */
+select:focus,
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="number"]:focus {
+    outline: none;                          /* Menghilangkan outline default */
+    border-color: var(--primary-color);     /* Warna border saat focus */
+    box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.1); /* Glow effect */
+}
+
+/* Gaya khusus untuk select */
+select {
+    appearance: none; /* Menghilangkan style default browser */
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+    background-position: right 0.5rem center;
+    background-repeat: no-repeat;
+    background-size: 1.5em 1.5em;
+    padding-right: 2.5rem; /* Ruang untuk ikon panah */
+}
+
+/* Gaya untuk grup tombol */
+.button-group {
+    display: flex;              /* Menggunakan flexbox */
+    flex-direction: column;     /* Arah kolom (vertikal) */
+    gap: 10px;                  /* Jarak antar item */
+    margin-bottom: 16px;        /* Margin bawah */
+}
+
+/* Gaya dasar untuk tombol */
+.btn {
+    width: 100%;                    /* Lebar penuh */
+    padding: 12px;                  /* Padding internal */
+    border: none;                   /* Menghilangkan border default */
+    border-radius: 6px;             /* Sudut membulat */
+    cursor: pointer;                /* Kursor pointer saat hover */
+    font-weight: 600;               /* Teks semi-bold */
+    font-size: 1rem;                /* Ukuran font */
+    color: white;                   /* Warna teks */
+    text-align: center;             /* Rata tengah teks */
+    transition: all 0.2s ease-in-out; /* Transisi untuk semua properti */
+    display: flex;                  /* Flexbox untuk konten tombol */
+    justify-content: center;        /* Rata tengah horizontal */
+    align-items: center;            /* Rata tengah vertikal */
+    gap: 8px;                       /* Jarak antara ikon dan teks */
+}
+
+/* Gaya untuk tombol primary */
+.btn-primary { 
+    background-color: var(--primary-color); /* Warna background */
+}
+.btn-primary:hover:not(:disabled) { 
+    background-color: #0b5ed7; /* Warna background saat hover */
+    transform: translateY(-1px); /* Efek angkat sedikit */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2); /* Shadow saat hover */
+}
+.btn-primary:active:not(:disabled) {
+    transform: translateY(0); /* Kembali ke posisi semula saat diklik */
+}
+.btn-primary.is-running { 
+    background-color: var(--danger-color); /* Warna saat sedang running */
+}
+
+/* Gaya untuk tombol secondary */
+.btn-secondary { 
+    background-color: var(--secondary-color); /* Warna background */
+}
+.btn-secondary:hover:not(:disabled) { 
+    background-color: #5a6268; /* Warna background saat hover */
+    transform: translateY(-1px); /* Efek angkat sedikit */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2); /* Shadow saat hover */
+}
+.btn-secondary:active:not(:disabled) {
+    transform: translateY(0); /* Kembali ke posisi semula saat diklik */
+}
+.btn-secondary.is-running { 
+    background-color: var(--danger-color); /* Warna saat sedang running */
+}
+
+/* Gaya untuk tombol yang dinonaktifkan */
+.btn:disabled { 
+    cursor: not-allowed; /* Kursor not-allowed */
+    opacity: 0.65;       /* Opacity reduced */
+    transform: none !important; /* Menghilangkan transform */
+    box-shadow: none !important; /* Menghilangkan shadow */
+}
+
+/* Gaya untuk tombol ikon */
+.icon-btn { 
+    background: none;        /* Tidak ada background */
+    border: none;            /* Tidak ada border */
+    cursor: pointer;         /* Kursor pointer */
+    padding: 8px;            /* Padding */
+    border-radius: 50%;      /* Bentuk bulat */
+    font-size: 1.5rem;       /* Ukuran font */
+    line-height: 1;          /* Line height */
+    color: var(--secondary-color); /* Warna ikon */
+    transition: all 0.2s ease; /* Transisi */
+    display: flex;           /* Flexbox untuk center */
+    justify-content: center; /* Rata tengah horizontal */
+    align-items: center;     /* Rata tengah vertikal */
+}
+.icon-btn:hover { 
+    background-color: #e9ecef; /* Warna background saat hover */
+    color: var(--primary-color); /* Warna ikon saat hover */
+}
+
+/* Gaya untuk kartu log */
+.log-card { 
+    padding: 16px;      /* Padding internal */
+    margin-top: 16px;   /* Margin atas */
+}
+.log-header { 
+    font-weight: 600;                     /* Teks semi-bold */
+    border-bottom: 1px solid var(--border-color); /* Border bawah */
+    padding-bottom: 8px;                   /* Padding bawah */
+    margin-bottom: 12px;                    /* Margin bawah */
+    display: flex;                         /* Flexbox */
+    justify-content: space-between;        /* Spasi antara judul dan aksi */
+    align-items: center;                   /* Rata tengah vertikal */
+}
+#process-log { 
+    font-family: 'Courier New', Courier, monospace; /* Font monospace untuk log */
+    font-size: 0.8rem;                    /* Ukuran font */
+    height: 150px;                        /* Tinggi fixed */
+    overflow-y: auto;                     /* Scroll vertikal jika konten panjang */
+    white-space: pre-wrap;                /* Mempertahankan whitespace dan wrapping */
+    word-break: break-all;                /* Break kata jika diperlukan */
+    background-color: #f8f9fa;            /* Warna latar belakang */
+    padding: 12px;                         /* Padding internal */
+    border-radius: 4px;                   /* Sudut membulat */
+    border: 1px solid var(--border-color); /* Border */
+    line-height: 1.4;                     /* Tinggi baris */
+}
+
+/* Gaya untuk container preview gambar */
+#image-preview-container { 
+    display: none;        /* Default disembunyikan */
+    margin-top: 16px;     /* Margin atas */
+    padding: 16px;        /* Padding internal */
+}
+#image-preview-container.visible { 
+    display: block;       /* Ditampilkan ketika memiliki class visible */
+    animation: fadeIn 0.3s ease; /* Animasi fade in */
+}
+.preview-header { 
+    font-weight: 600;       /* Teks semi-bold */
+    font-size: 0.9rem;       /* Ukuran font */
+    margin-bottom: 8px;      /* Margin bawah */
+    color: var(--secondary-color);          /* Warna teks */
+}
+#selected-image-preview { 
+    width: 100%;              /* Lebar penuh */
+    max-height: 200px;        /* Tinggi maksimum */
+    object-fit: contain;      /* Mempertahankan aspect ratio */
+    border-radius: 4px;       /* Sudut membulat */
+    background-color: #f0f0f0; /* Warna latar belakang */
+    border: 1px solid var(--border-color); /* Border */
+}
+
+/* Gaya untuk input group API key */
+.api-key-input-group { 
+    display: flex;    /* Menggunakan flexbox */
+    gap: 8px;         /* Jarak antar item */
+    align-items: center; /* Rata tengah vertikal */
+}
+.api-key-input-group input { 
+    flex-grow: 1;     /* Input mengisi sisa space */
+    margin-bottom: 0; /* Menghilangkan margin bawah */
+}
+.btn-add { 
+    padding: 10px 14px;             /* Padding */
+    background-color: var(--primary-color); /* Warna background */
+    color: white;                  /* Warna teks */
+    border: none;                  /* Tidak ada border */
+    border-radius: 6px;            /* Sudut membulat */
+    cursor: pointer;               /* Kursor pointer */
+    font-size: 1.2rem;             /* Ukuran font */
+    line-height: 1;                /* Line height */
+    transition: all 0.2s ease;     /* Transisi */
+    display: flex;                 /* Flexbox */
+    justify-content: center;       /* Rata tengah */
+    align-items: center;           /* Rata tengah */
+}
+.btn-add:hover { 
+    background-color: #0b5ed7; /* Warna background saat hover */
+    transform: scale(1.05);     /* Efek zoom kecil */
+}
+
+/* Gaya untuk daftar API key */
+.api-key-list { 
+    margin-top: 12px;           /* Margin atas */
+    display: flex;              /* Menggunakan flexbox */
+    flex-direction: column;     /* Arah kolom */
+    gap: 8px;                   /* Jarak antar item */
+}
+.api-key-item { 
+    display: flex;                   /* Menggunakan flexbox */
+    justify-content: space-between;  /* Spasi antara item */
+    align-items: center;             /* Vertikal center */
+    background-color: #f8f9fa;      /* Warna latar belakang */
+    padding: 10px 12px;              /* Padding */
+    border-radius: 6px;             /* Sudut membulat */
+    border: 1px solid var(--border-color); /* Border */
+    transition: background-color 0.2s ease; /* Transisi */
+}
+.api-key-item:hover {
+    background-color: #e9ecef; /* Warna background saat hover */
+}
+.api-key-item span { 
+    font-family: 'Courier New', monospace; /* Font monospace untuk API key */
+    font-size: 0.9rem;              /* Ukuran font */
+    font-weight: 500;               /* Ketebalan font */
+}
+.btn-remove { 
+    background: none;            /* Tidak ada background */
+    border: none;                /* Tidak ada border */
+    color: var(--danger-color);  /* Warna merah */
+    cursor: pointer;             /* Kursor pointer */
+    font-weight: bold;           /* Teks tebal */
+    font-size: 1.2rem;           /* Ukuran font */
+    padding: 4px;                /* Padding */
+    border-radius: 4px;          /* Sudut membulat */
+    transition: all 0.2s ease;   /* Transisi */
+    display: flex;               /* Flexbox */
+    justify-content: center;     /* Rata tengah */
+    align-items: center;         /* Rata tengah */
+}
+.btn-remove:hover {
+    background-color: var(--danger-color); /* Background merah saat hover */
+    color: white; /* Teks putih saat hover */
+}
+
+/* Gaya untuk settings provider API - default disembunyikan */
+.api-provider-settings { 
+    display: none; 
+}
+
+.api-provider-settings.active {
+    display: block;
+    animation: fadeIn 0.3s ease; /* Animasi fade in */
+}
+
+/* Gaya untuk menampilkan path folder */
+.folder-path {
+    margin-top: 12px;              /* Margin atas */
+    font-size: 0.85rem;            /* Ukuran font kecil */
+    color: var(--secondary-color); /* Warna teks */
+    font-style: italic;            /* Gaya miring */
+    word-break: break-all;         /* Break kata jika panjang */
+    background-color: #f8f9fa;     /* Warna latar belakang */
+    padding: 10px;                  /* Padding */
+    border-radius: 6px;            /* Sudut membulat */
+    border: 1px solid var(--border-color); /* Border */
+}
+
+/* Gaya untuk container collapsible */
+.collapsible-container {
+    padding: 0; /* Menghapus padding dari container card */
+    overflow: hidden; /* Menyembunyikan overflow */
+}
+
+/* Gaya untuk trigger collapsible */
+.collapsible-trigger {
+    background-color: transparent; /* Background transparan */
+    color: var(--text-color);      /* Warna teks */
+    cursor: pointer;               /* Kursor pointer */
+    padding: 16px;                 /* Padding */
+    width: 100%;                   /* Lebar penuh */
+    border: none;                  /* Tidak ada border */
+    text-align: left;              /* Rata kiri teks */
+    outline: none;                 /* Menghilangkan outline */
+    font-size: 1.1rem;             /* Ukuran font */
+    font-weight: 600;             /* Teks semi-bold */
+    display: flex;                 /* Menggunakan flexbox */
+    justify-content: space-between; /* Spasi antara item */
+    align-items: center;           /* Vertikal center */
+    transition: background-color 0.2s ease; /* Transisi */
+}
+
+.collapsible-trigger:hover {
+    background-color: #f8f9fa; /* Warna background saat hover */
+}
+
+/* Gaya untuk panah pada collapsible trigger */
+.collapsible-trigger .arrow {
+    transition: transform 0.3s ease-in-out; /* Transisi untuk rotasi */
+    font-size: 1.2rem; /* Ukuran panah */
+}
+
+/* Gaya untuk panah ketika collapsible aktif */
+.collapsible-trigger.active .arrow {
+    transform: rotate(180deg); /* Memutar panah 180 derajat */
+}
+
+/* Gaya untuk konten collapsible */
+.collapsible-content {
+    max-height: 0;                /* Tinggi awal 0 (disembunyikan) */
+    overflow: hidden;              /* Menyembunyikan overflow */
+    transition: max-height 0.3s ease-out; /* Transisi untuk animasi */
+    background-color: var(--card-background); /* Warna latar belakang */
+}
+
+/* Gaya untuk konten dalam collapsible */
+.collapsible-inner-content {
+    padding: 0 16px 16px 16px; /* Padding: atas 0, kanan-kiri 16px, bawah 16px */
+}
+
+/* Status indicators */
+.status-indicator {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-right: 8px;
+}
+
+.status-running {
+    background-color: var(--success-color);
+}
+
+.status-stopped {
+    background-color: var(--secondary-color);
+}
+
+.status-error {
+    background-color: var(--danger-color);
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.loading-spinner {
+    animation: spin 1s linear infinite;
+}
+
+/* Responsive improvements */
+@media (max-width: 400px) {
+    body {
+        font-size: 14px;
+        min-width: 320px;
+    }
+    
+    .content {
+        padding: 12px;
+    }
+    
+    .card {
+        padding: 12px;
+    }
+    
+    .header {
+        padding: 12px;
+    }
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}
+
+/* Focus styles for accessibility */
+button:focus-visible,
+select:focus-visible,
+input:focus-visible {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
+/* Utility classes */
+.text-center {
+    text-align: center;
+}
+
+.text-muted {
+    color: var(--secondary-color);
+}
+
+.mb-0 {
+    margin-bottom: 0;
+}
+
+.mt-0 {
+    margin-top: 0;
+}
+
+.hidden {
+    display: none !important;
+}

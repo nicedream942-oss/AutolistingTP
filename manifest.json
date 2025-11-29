@@ -1,0 +1,32 @@
+{
+  "manifest_version": 3,
+  "name": "Teepublic Autolisting",
+  "version": "1.1",
+  "description": "Fills title, description, and tags automatically on Teepublic using AI (Gemini, OpenRouter, & Groq).",
+  "permissions": [
+    "storage",
+    "activeTab",
+    "scripting",
+    "sidePanel"
+  ],
+  "host_permissions": [
+    "https://*.teepublic.com/*",
+    "https://generativelanguage.googleapis.com/*",
+    "https://openrouter.ai/*",
+    "https://api.groq.com/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "side_panel": {
+    "default_path": "sidepanel.html"
+  },
+  "action": {
+    "default_title": "Buka Teepublic Autolisting"
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  }
+}
